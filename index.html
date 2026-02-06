@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Sabor Mexicano - Authentic Mexican Restaurant</title>
+    
+    <!-- ResOS Widget Script -->
+    <script type="text/javascript">
+        // ResOS Widget Configuration and Loader
+        (function() {
+            var resosConfig = {
+                url: 'https://elsabormexicano.resos.com/booking',
+                useModal: true // Use modal for better UX (ResOS best practice)
+            };
+            
+            // Function to open ResOS booking widget
+            window.openResosBooking = function() {
+                if (resosConfig.useModal) {
+                    // Modal approach (recommended by ResOS for better UX)
+                    var modal = document.getElementById('resos-modal');
+                    if (!modal) {
+                        // Create modal container
+                        modal = document.createElement('div');
+                        modal.id = 'resos-modal';
+                        modal.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);z-index:10000;display:flex;align-items:center;justify-content:center;padding:20px;';
+                        
+                        // Create iframe for booking widget
+                        var iframeContainer = document.createElement('div');
+                        iframeContainer.style.cssText = 'position:relative;width:100%;max-width:1000px;height:90%;max-height:800px;background:white;border-radius:10px;overflow:hidden;box-shadow:0 10px 40px rgba(0,0,0,0.5);';
+                        
+                        var iframe = document.createElement('iframe');
+                        iframe.src = resosConfig.url;
+                        iframe.style.cssText = 'width:100%;height:100%;border:none;';
+                        iframe.setAttribute('title', 'ResOS Reservation');
+                        
+                        // Create close button
+                        var closeBtn = document.createElement('button');
+                        closeBtn.innerHTML = '&times;';
+                        closeBtn.setAttribute('aria-label', 'Close');
+                        closeBtn.style.cssText = 'position:absolute;top:10px;right:10px;background:rgba(139,69,19,0.9);color:white;border:none;font-size:28px;width:40px;height:40px;border-radius:50%;cursor:pointer;z-index:10001;transition:all 0.3s ease;box-shadow:0 2px 10px rgba(0,0,0,0.3);';
+                        closeBtn.onmouseover = function() {
+                            this.style.background = 'rgba(160,104,74,0.95)';
+                            this.style.transform = 'scale(1.1)';
+                        };
+                        closeBtn.onmouseout = function() {
+                            this.style.background = 'rgba(139,69,19,0.9)';
+                            this.style.transform = 'scale(1)';
+                        };
+                        closeBtn.onclick = function() {
+                            document.body.removeChild(modal);
+                        };
+                        
+                        iframeContainer.appendChild(iframe);
+                        iframeContainer.appendChild(closeBtn);
+                        modal.appendChild(iframeContainer);
+                        document.body.appendChild(modal);
+                        
+                        // Close on background click (ResOS best practice)
+                        modal.onclick = function(e) {
+                            if (e.target === modal) {
+                                document.body.removeChild(modal);
+                            }
+                        };
+                        
+                        // Close on ESC key (accessibility best practice)
+                        document.addEventListener('keydown', function(e) {
+                            if (e.key === 'Escape' && modal && modal.parentNode) {
+                                document.body.removeChild(modal);
+                            }
+                        });
+                    } else {
+                        modal.style.display = 'flex';
+                    }
+                } else {
+                    // Fallback: Open in new tab
+                    window.open(resosConfig.url, '_blank');
+                }
+            };
+        })();
+    </script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: #2c3e50;
+        }
+
+        /* Header Section */
+        .hero {
+            position: relative;
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><defs><linearGradient id="sky" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:%23ff6b6b;stop-opacity:1" /><stop offset="100%" style="stop-color:%23feca57;stop-opacity:1" /></linearGradient><linearGradient id="greenGrad" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:%2348c774;stop-opacity:1" /><stop offset="100%" style="stop-color:%2338a169;stop-opacity:1" /></linearGradient></defs><rect fill="url(%23sky)" width="1200" height="800"/><rect fill="white" y="265" width="1200" height="270"/><rect fill="url(%23greenGrad)" y="535" width="1200" height="265"/><circle fill="%23f9ca24" cx="600" cy="150" r="80"/><ellipse fill="%23e67e22" cx="500" cy="400" rx="120" ry="100" transform="rotate(-15 500 400)"/><ellipse fill="%23c0392b" cx="700" cy="420" rx="100" ry="80" transform="rotate(20 700 420)"/><path fill="%2327ae60" d="M350,380 Q380,330 410,380 L390,450 L370,450 Z"/><path fill="%2327ae60" d="M450,390 Q470,350 490,390 L480,440 L460,440 Z"/><path fill="%2327ae60" d="M750,400 Q770,360 790,400 L780,450 L760,450 Z"/><path fill="%23e74c3c" d="M520,450 L580,450 L600,490 L540,490 Z" opacity="0.3"/><circle fill="%23f39c12" cx="650" cy="450" r="15"/><circle fill="%23d35400" cx="680" cy="430" r="12"/></svg>') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+
+        .hero-content {
+            z-index: 1;
+            padding: 2rem;
+            background: rgba(0, 128, 0, 0.15);
+            backdrop-filter: blur(5px);
+            border-radius: 15px;
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+            font-family: 'Georgia', serif;
+            letter-spacing: 2px;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+            color: white;
+            text-decoration: none;
+            font-size: 1.3rem;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            border: none;
+            font-family: 'Georgia', serif;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+        }
+
+        /* About Section */
+        .about {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, #fff8f0 0%, #ffefd5 100%);
+            text-align: center;
+        }
+
+        .about h2 {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            color: #5d4e37;
+            position: relative;
+            display: inline-block;
+        }
+
+        .about h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: #27ae60;
+        }
+
+        .about p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 2rem auto;
+            color: #5d4e37;
+            line-height: 1.8;
+        }
+
+        /* Menu Highlights */
+        .menu-section {
+            padding: 5rem 2rem;
+            background: linear-gradient(to bottom, #c0392b 0%, #922b21 100%);
+            color: white;
+        }
+
+        .menu-section h2 {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            color: #f5deb3;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .menu-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(39, 174, 96, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-5px);
+            border-color: rgba(39, 174, 96, 0.6);
+        }
+
+        .menu-item h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #f5deb3;
+        }
+
+        .menu-item p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        /* Atmosphere Section */
+        .atmosphere {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, #16a085 0%, #138d75 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .atmosphere h2 {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            color: #f5deb3;
+        }
+
+        .atmosphere-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 3rem auto;
+        }
+
+        .atmosphere-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .atmosphere-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .atmosphere-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #f5deb3;
+        }
+
+        /* Location Section */
+        .location {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, #fff8f0 0%, #ffefd5 100%);
+            text-align: center;
+        }
+
+        .location h2 {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            color: #5d4e37;
+        }
+
+        .location p {
+            font-size: 1.3rem;
+            color: #5d4e37;
+            margin-bottom: 1rem;
+        }
+
+        .location-icon {
+            font-size: 2rem;
+            color: #27ae60;
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #1a252f;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        footer p {
+            margin: 0.5rem 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .about h2,
+            .menu-section h2,
+            .atmosphere h2,
+            .location h2 {
+                font-size: 2rem;
+            }
+
+            .menu-grid,
+            .atmosphere-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>🌮 El Sabor Mexicano 🌮</h1>
+            <p>Authentic Mexican Cuisine</p>
+            <p style="font-size: 1.2rem; margin-bottom: 2rem;">Experience the true taste of Mexico</p>
+            <button class="cta-button" onclick="openResosBooking()">Reserve a Table</button>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about">
+        <h2>Welcome to El Sabor Mexicano</h2>
+        <p>
+            Located in the heart of the city, El Sabor Mexicano brings you the authentic flavors of Mexico.
+            For three generations, our family has shared the passion for traditional Mexican cuisine,
+            using recipes passed down through the years and the finest ingredients.
+        </p>
+        <p>
+            Our warm and inviting restaurant offers a genuine Mexican dining experience, where every dish
+            tells a story of Mexican heritage and culinary excellence.
+        </p>
+    </section>
+
+    <!-- Menu Section -->
+    <section class="menu-section">
+        <h2>Our Mexican Specialties</h2>
+        <div class="menu-grid">
+            <div class="menu-item">
+                <h3>🌮 Tacos al Pastor</h3>
+                <p>
+                    Traditional marinated pork tacos with pineapple, onions, cilantro,
+                    and our special salsa verde on fresh corn tortillas.
+                </p>
+            </div>
+            <div class="menu-item">
+                <h3>🫔 Enchiladas Verdes</h3>
+                <p>
+                    Rolled corn tortillas filled with chicken, topped with tangy
+                    tomatillo sauce, sour cream, and queso fresco.
+                </p>
+            </div>
+            <div class="menu-item">
+                <h3>🧀 Quesadillas Supremas</h3>
+                <p>
+                    Grilled flour tortillas stuffed with Oaxaca cheese, grilled chicken,
+                    peppers, and served with guacamole and pico de gallo.
+                </p>
+            </div>
+            <div class="menu-item">
+                <h3>🌯 Burrito Mexicano</h3>
+                <p>
+                    Large flour tortilla filled with seasoned beef, black beans, rice,
+                    cheese, lettuce, and topped with salsa roja and sour cream.
+                </p>
+            </div>
+            <div class="menu-item">
+                <h3>🍖 Carne Asada</h3>
+                <p>
+                    Grilled marinated flank steak served with charro beans, Mexican rice,
+                    grilled onions, and fresh flour tortillas.
+                </p>
+            </div>
+            <div class="menu-item">
+                <h3>🍮 Flan Casero</h3>
+                <p>
+                    Our signature dessert: smooth and creamy caramel custard
+                    made with vanilla and topped with rich caramel sauce.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Atmosphere Section -->
+    <section class="atmosphere">
+        <h2>Mexican Ambiance</h2>
+        <div class="atmosphere-grid">
+            <div class="atmosphere-card">
+                <div class="atmosphere-icon">🍹</div>
+                <h3>Margarita Bar</h3>
+                <p>Extensive selection of tequilas and handcrafted margaritas</p>
+            </div>
+            <div class="atmosphere-card">
+                <div class="atmosphere-icon">🎵</div>
+                <h3>Live Mariachi</h3>
+                <p>Traditional Mexican mariachi music on weekend evenings</p>
+            </div>
+            <div class="atmosphere-card">
+                <div class="atmosphere-icon">🎨</div>
+                <h3>Colorful Decor</h3>
+                <p>Vibrant Mexican-style interior with traditional artwork</p>
+            </div>
+            <div class="atmosphere-card">
+                <div class="atmosphere-icon">🕯️</div>
+                <h3>Romantic Setting</h3>
+                <p>Intimate lighting with candles for a perfect evening</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location Section -->
+    <section class="location">
+        <h2>Find Us</h2>
+        <div class="location-icon">📍</div>
+        <p><strong>El Sabor Mexicano</strong></p>
+        <p>Avenida Revolución, 123</p>
+        <p>Downtown District</p>
+        <p>City Center</p>
+        <p style="margin-top: 2rem;">📞 Phone: +52 55 1234 5678</p>
+        <p>✉️ Email: info@elsabormexicano.com</p>
+        <div style="margin-top: 3rem;">
+            <button class="cta-button" onclick="openResosBooking()">Reserve Now</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 El Sabor Mexicano</p>
+        <p>Authentic Mexican cuisine since 1950</p>
+        <p>🇲🇽 Bringing the taste of Mexico to your table 🇲🇽</p>
+    </footer>
+</body>
+</html>
